@@ -124,6 +124,11 @@ if [ ! -f ${SERVER_DIR}/enshrouded_server.exe ]; then
   echo "---Something went wrong, can't find the executable, putting container into sleep mode!---"
   sleep infinity
 else
+  # Proton points the game at C:\Program Files (x86)\Steam\steamclient64.dll and only fills
+  # that folder from ${ASTEAM_PATH}/legacycompat, which a SteamCMD-only setup doesn't have.
+  # Without it the 1.0 server fails Steamworks init with "No SteamClient023".
+  mkdir -p ${ASTEAM_PATH}/legacycompat
+  cp -fp ${SERVER_DIR}/steamclient.dll ${SERVER_DIR}/steamclient64.dll ${ASTEAM_PATH}/legacycompat/
   ${ASTEAM_PATH}/compatibilitytools.d/${GE_PROTON_NAME}/proton run ${SERVER_DIR}/enshrouded_server.exe ${GAME_PARAMS} &
   
   # Find pid for enshrouded_server.exe
