@@ -1,11 +1,12 @@
-FROM debian:12-slim
+FROM debian:13-slim
 
 LABEL org.opencontainers.image.authors="nodiaque-github@abinemail.com"
 LABEL org.opencontainers.image.source="https://github.com/nodiaque/docker-steamcmd-server"
 
 ENV HOME="/serverdata"
-ENV GE_PROTON_VERSION="10-28"
-ENV GE_PROTON_URL="https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton${GE_PROTON_VERSION}/GE-Proton${GE_PROTON_VERSION}.tar.gz"
+ENV GE_PROTON_VERSION="11-9"
+ENV GE_PROTON_NAME="GE-Proton${GE_PROTON_VERSION}-x86_64"
+ENV GE_PROTON_URL="https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton${GE_PROTON_VERSION}/${GE_PROTON_NAME}.tar.gz"
 ENV DATA_DIR="/serverdata"
 ENV GAME_ID="2278520"
 ENV GAME_PARAMS=""
@@ -70,7 +71,7 @@ RUN chown -R $USER /opt/config/
 
 RUN mkdir $STEAMCMD_DIR && \
     mkdir $SERVER_DIR && \
-    wget "$GE_PROTON_URL" -O "${DATA_DIR}/GE-Proton${GE_PROTON_VERSION}.tgz"
+    wget "$GE_PROTON_URL" -O "${DATA_DIR}/${GE_PROTON_NAME}.tgz"
 
 #Server Start
 ENTRYPOINT ["/opt/scripts/start.sh"]

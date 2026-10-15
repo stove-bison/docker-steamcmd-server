@@ -23,7 +23,7 @@ else
 fi
 
 echo "---Checking if Proton is installed---"
-if ! [ -f "${ASTEAM_PATH}/compatibilitytools.d/GE-Proton${GE_PROTON_VERSION}/proton" ]; then
+if ! [ -f "${ASTEAM_PATH}/compatibilitytools.d/${GE_PROTON_NAME}/proton" ]; then
   echo "---Proton not found, installing---"
   mkdir -p "${ASTEAM_PATH}/compatibilitytools.d" 
   mkdir -p "${ASTEAM_PATH}/steamapps/compatdata/${GAME_ID}" 
@@ -32,11 +32,11 @@ if ! [ -f "${ASTEAM_PATH}/compatibilitytools.d/GE-Proton${GE_PROTON_VERSION}/pro
   ln -s "${STEAMCMD_DIR}/linux64" "${DATA_DIR}/.steam/sdk64" 
   ln -s "${DATA_DIR}/.steam/sdk32/steamclient.so" "${DATA_DIR}/.steam/sdk32/steamservice.so" 
   ln -s "${DATA_DIR}/.steam/sdk64/steamclient.so" "${DATA_DIR}/.steam/sdk64/steamservice.so" 
-  if ! [ -f "${DATA_DIR}/GE-Proton${GE_PROTON_VERSION}.tgz" ]; then
-     wget "$GE_PROTON_URL" -O "${DATA_DIR}/GE-Proton${GE_PROTON_VERSION}.tgz"
+  if ! [ -f "${DATA_DIR}/${GE_PROTON_NAME}.tgz" ]; then
+     wget "$GE_PROTON_URL" -O "${DATA_DIR}/${GE_PROTON_NAME}.tgz"
   fi
-  tar -x -C "${ASTEAM_PATH}/compatibilitytools.d/" -f "${DATA_DIR}/GE-Proton${GE_PROTON_VERSION}.tgz" && \
-  if ! [ -f "${ASTEAM_PATH}/compatibilitytools.d/GE-Proton${GE_PROTON_VERSION}/proton" ]; then
+  tar -x -C "${ASTEAM_PATH}/compatibilitytools.d/" -f "${DATA_DIR}/${GE_PROTON_NAME}.tgz" && \
+  if ! [ -f "${ASTEAM_PATH}/compatibilitytools.d/${GE_PROTON_NAME}/proton" ]; then
     echo "---Something went wrong, can't find the executable, putting container into sleep mode!---"
     sleep infinity
   fi
@@ -124,7 +124,7 @@ if [ ! -f ${SERVER_DIR}/enshrouded_server.exe ]; then
   echo "---Something went wrong, can't find the executable, putting container into sleep mode!---"
   sleep infinity
 else
-  ${ASTEAM_PATH}/compatibilitytools.d/GE-Proton${GE_PROTON_VERSION}/proton run ${SERVER_DIR}/enshrouded_server.exe ${GAME_PARAMS} &
+  ${ASTEAM_PATH}/compatibilitytools.d/${GE_PROTON_NAME}/proton run ${SERVER_DIR}/enshrouded_server.exe ${GAME_PARAMS} &
   
   # Find pid for enshrouded_server.exe
   timeout=0
