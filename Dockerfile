@@ -50,6 +50,7 @@ RUN useradd -d $DATA_DIR -s /bin/bash -g $GID -u $UID $USER && \
         locales \
         lib32gcc-s1 \
         python3 \
+        libvulkan1 \
     && echo 'LANG="en_US.UTF-8"' > /etc/default/locale \
     && echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
     && locale-gen \
